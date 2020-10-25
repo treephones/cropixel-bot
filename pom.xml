@@ -3,4 +3,21 @@
   <groupId>com.treephones</groupId>
   <artifactId>cropixel-bot</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+  	<dependency>
+    	<groupId>net.dv8tion</groupId>
+    	<artifactId>JDA</artifactId>
+    	<version>4.2.0_168</version>
+	</dependency>
+  </dependencies>
+  
+  <repositories> 
+  	<repository>
+    	<id>jcenter</id>
+    	<name>jcenter-bintray</name>
+    	<url>https://jcenter.bintray.com</url>
+	</repository>
+  </repositories>
+  
 </project>
