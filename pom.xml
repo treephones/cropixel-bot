@@ -10,6 +10,16 @@
     	<artifactId>JDA</artifactId>
     	<version>4.2.0_168</version>
 	</dependency>
+	<dependency>
+    	<groupId>net.hypixel</groupId>
+    	<artifactId>HypixelAPI</artifactId>
+    	<version>3.0.0</version>
+	</dependency>
+	<dependency>
+ 		<groupId>com.google.code.gson</groupId>
+  		<artifactId>gson</artifactId>
+  		<version>2.8.6</version>
+	</dependency>
   </dependencies>
   
   <repositories> 
@@ -18,6 +28,10 @@
     	<name>jcenter-bintray</name>
     	<url>https://jcenter.bintray.com</url>
 	</repository>
+	<repository>
+    	<id>Hypixel</id>
+    	<url>https://repo.hypixel.net/repository/Hypixel/</url>
+	</repository>
   </repositories>
-  
+
 </project>
