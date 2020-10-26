@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutionException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.treephones.cropixelbot.utils.Constants;
+import com.treephones.cropixelbot.utils.Utils;
 
 import net.hypixel.api.HypixelAPI;
 import net.hypixel.api.reply.FriendsReply.FriendShip;
@@ -60,7 +61,7 @@ public class Query {
 				}
 				reader.close();
 				JsonObject obj = (JsonObject)parse.parse(contents);
-				return obj.get("id").toString();
+				return Utils.chop(obj.get("id").toString());
 			}
 		}
 		catch(MalformedURLException e) {
@@ -93,12 +94,10 @@ public class Query {
 					contents += reader.nextLine();
 				}
 				reader.close();
-				StringBuffer contentsEditable = new StringBuffer(contents);
-				contentsEditable.deleteCharAt(0);
-				contentsEditable.deleteCharAt(contentsEditable.length()-1);
+				contents = Utils.chop(contents);
 				
-				JsonObject obj = (JsonObject)parse.parse(contentsEditable.toString());
-				return obj.get("name").toString();
+				JsonObject obj = (JsonObject)parse.parse(contents);
+				return Utils.chop(obj.get("name").toString());
 			}
 		}
 		catch(MalformedURLException e) {

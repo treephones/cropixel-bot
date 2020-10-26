@@ -3,7 +3,7 @@ package com.treephones.cropixelbot;
 import javax.security.auth.login.LoginException;
 
 import com.treephones.cropixelbot.StatQuery.Query;
-import com.treephones.cropixelbot.events.RandomCommands;
+import com.treephones.cropixelbot.events.MinecraftQueries;
 import com.treephones.cropixelbot.utils.Constants;
 
 import net.dv8tion.jda.api.AccountType;
@@ -19,6 +19,6 @@ public class CropixelBot {
 				.setToken(Constants.key_discord)
 				.build();	
 		
-		jda.addEventListener(new RandomCommands());
+		jda.addEventListener(new MinecraftQueries());
 	}
 }

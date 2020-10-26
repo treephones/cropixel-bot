@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.hypixel.api.reply.FriendsReply.FriendShip;
 
-public class RandomCommands extends ListenerAdapter {
+public class MinecraftQueries extends ListenerAdapter {
 	CropixelBot bot = new CropixelBot();
 	
 	@Override
