@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.treephones.cropixelbot.StatQuery.exceptions.UUIDNotFoundException;
+import com.treephones.cropixelbot.StatQuery.exceptions.UsernameNotFoundException;
 import com.treephones.cropixelbot.utils.Constants;
 import com.treephones.cropixelbot.utils.Utils;
 
@@ -20,15 +24,26 @@ import net.hypixel.api.reply.FriendsReply.FriendShip;
 public class Query {
 	public HypixelAPI api = new HypixelAPI(UUID.fromString(Constants.key_hypixel));
 	public JsonObject query = null;
-	public List<FriendShip> friends = null;
+	public List<FriendShip> friendships = null;
 	
 	JsonParser parse = new JsonParser();
 	
 	public Query() {}
 	
-	public void patQuery() {
+	public List<String> friendQuery(String username) throws UsernameNotFoundException {
+		String uuid = usernameToUUID(username);
+		List<String> friendNames = new ArrayList<String>();
 		try {
-			this.friends = api.getFriends(Constants.patrick_uuid).get().getFriendShips();
+			this.friendships = api.getFriends(uuid).get().getFriendShips();
+			for(FriendShip friendship : this.friendships) {
+				if(Utils.cleanUUID(friendship.getUuidReceiver().toString()).equals(uuid)) {
+					friendNames.add(UUIDtoUsername(friendship.getUuidSender().toString()));
+				}
+				else {
+					friendNames.add(UUIDtoUsername(friendship.getUuidReceiver().toString()));
+				}
+			}
+			return friendNames;
 		}
 		catch(InterruptedException e) {
 			e.printStackTrace();
@@ -36,13 +51,17 @@ public class Query {
 		catch(ExecutionException e) {
 			e.printStackTrace();
 		}
+		catch(UUIDNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public JsonObject getQuery() {
 		return this.query;
 	}
 	
-	public String usernameToUUID(String username) {
+	public String usernameToUUID(String username) throws UsernameNotFoundException {
 		try {
 			URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + username);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -51,7 +70,7 @@ public class Query {
 			
 			int responsecode;
 			if ((responsecode = con.getResponseCode()) != 200) {
-				throw new UsernameNotFoundException("Username does not exist!");
+				throw new UsernameNotFoundException("Username: " + username + " does not exist!");
 			}
 			else {
 				String contents = "";
@@ -70,14 +89,12 @@ public class Query {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-		catch(UsernameNotFoundException e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 	
-	public String UUIDtoUsername(String UUID) {
+	public String UUIDtoUsername(String UUID) throws UUIDNotFoundException {
 		try {
+			UUID = Utils.cleanUUID(UUID);
 			URL url = new URL("https://api.mojang.com/user/profiles/" + UUID + "/names");
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("GET");
@@ -85,7 +102,7 @@ public class Query {
 			
 			int responsecode;
 			if ((responsecode = con.getResponseCode()) != 200) {
-				throw new UsernameNotFoundException("Username does not exist!");
+				throw new UUIDNotFoundException("UUID: " + UUID + " does not exist!");
 			}
 			else {
 				String contents = "";
@@ -94,9 +111,10 @@ public class Query {
 					contents += reader.nextLine();
 				}
 				reader.close();
-				contents = Utils.chop(contents);
 				
-				JsonObject obj = (JsonObject)parse.parse(contents);
+				JsonArray objs = (JsonArray)parse.parse(contents);
+				JsonObject obj = (JsonObject)objs.get(objs.size()-1);
+				
 				return Utils.chop(obj.get("name").toString());
 			}
 		}
@@ -104,9 +122,6 @@ public class Query {
 			e.printStackTrace();
 		}
 		catch(IOException e) {
-			e.printStackTrace();
-		}
-		catch(UsernameNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
