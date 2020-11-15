@@ -103,8 +103,7 @@ public class Query {
 			con.setRequestMethod("GET");
 			con.connect();
 			
-			int responsecode;
-			if ((responsecode = con.getResponseCode()) != 200) {
+			if(con.getResponseCode() != 200) {
 				throw new UUIDNotFoundException("UUID: " + UUID + " does not exist!");
 			}
 			else {
