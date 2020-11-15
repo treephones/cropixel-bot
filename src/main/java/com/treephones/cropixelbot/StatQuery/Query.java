@@ -1,5 +1,6 @@
 package com.treephones.cropixelbot.StatQuery;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+
+import javax.imageio.ImageIO;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
