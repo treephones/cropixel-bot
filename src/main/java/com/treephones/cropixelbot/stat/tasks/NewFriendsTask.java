@@ -1,13 +1,13 @@
-package com.treephones.cropixelbot.StatQuery.tasks;
+package com.treephones.cropixelbot.stat.tasks;
 
 import java.awt.Color;
 import java.util.List;
 import java.util.TimerTask;
 
 import com.treephones.cropixelbot.CropixelBot;
-import com.treephones.cropixelbot.StatQuery.Query;
-import com.treephones.cropixelbot.StatQuery.exceptions.UUIDNotFoundException;
-import com.treephones.cropixelbot.StatQuery.exceptions.UsernameNotFoundException;
+import com.treephones.cropixelbot.stat.StatRetr;
+import com.treephones.cropixelbot.stat.exceptions.UUIDNotFoundException;
+import com.treephones.cropixelbot.stat.exceptions.UsernameNotFoundException;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 public class NewFriendsTask extends TimerTask {
 	String username;
 	String uuid;
-	Query q;
+	StatRetr q;
 	List<String> prevflist;
 	TextChannel channel;
 	

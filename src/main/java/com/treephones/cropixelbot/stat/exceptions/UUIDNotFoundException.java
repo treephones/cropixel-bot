@@ -1,4 +1,4 @@
-package com.treephones.cropixelbot.StatQuery.exceptions;
+package com.treephones.cropixelbot.stat.exceptions;
 
 public class UUIDNotFoundException extends Exception {
 	public UUIDNotFoundException(String message) {

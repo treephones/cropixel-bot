@@ -3,8 +3,8 @@ package com.treephones.cropixelbot.events;
 import java.awt.Color;
 
 import com.treephones.cropixelbot.CropixelBot;
-import com.treephones.cropixelbot.StatQuery.exceptions.UUIDNotFoundException;
-import com.treephones.cropixelbot.StatQuery.exceptions.UsernameNotFoundException;
+import com.treephones.cropixelbot.stat.exceptions.UUIDNotFoundException;
+import com.treephones.cropixelbot.stat.exceptions.UsernameNotFoundException;
 import com.treephones.cropixelbot.utils.Constants;
 import com.treephones.cropixelbot.utils.Utils;
 
@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class MinecraftQueries extends ListenerAdapter {
+public class MinecraftCommands extends ListenerAdapter {
 	CropixelBot bot = new CropixelBot();
 	
 	@Override

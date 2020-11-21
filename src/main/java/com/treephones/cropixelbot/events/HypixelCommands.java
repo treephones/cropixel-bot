@@ -6,9 +6,9 @@ import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import com.treephones.cropixelbot.CropixelBot;
-import com.treephones.cropixelbot.StatQuery.exceptions.UUIDNotFoundException;
-import com.treephones.cropixelbot.StatQuery.exceptions.UsernameNotFoundException;
-import com.treephones.cropixelbot.StatQuery.tasks.NewFriendsTask;
+import com.treephones.cropixelbot.stat.exceptions.UUIDNotFoundException;
+import com.treephones.cropixelbot.stat.exceptions.UsernameNotFoundException;
+import com.treephones.cropixelbot.stat.tasks.NewFriendsTask;
 import com.treephones.cropixelbot.utils.Constants;
 import com.treephones.cropixelbot.utils.Utils;
 
@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-public class HypixelQueries extends ListenerAdapter {
+public class HypixelCommands extends ListenerAdapter {
 	CropixelBot bot = new CropixelBot();
 	HashMap<String, Timer> tasks = new HashMap<String, Timer>();
 	String tracking_name = null;

@@ -1,4 +1,4 @@
-package com.treephones.cropixelbot.StatQuery;
+package com.treephones.cropixelbot.stat;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -16,22 +16,22 @@ import javax.imageio.ImageIO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.treephones.cropixelbot.StatQuery.exceptions.UUIDNotFoundException;
-import com.treephones.cropixelbot.StatQuery.exceptions.UsernameNotFoundException;
+import com.treephones.cropixelbot.stat.exceptions.UUIDNotFoundException;
+import com.treephones.cropixelbot.stat.exceptions.UsernameNotFoundException;
 import com.treephones.cropixelbot.utils.Constants;
 import com.treephones.cropixelbot.utils.Utils;
 
 import net.hypixel.api.HypixelAPI;
 import net.hypixel.api.reply.FriendsReply.FriendShip;
 
-public class Query {
+public class StatRetr {
 	public HypixelAPI api = new HypixelAPI(UUID.fromString(Constants.key_hypixel));
 	public JsonObject query = null;
 	public List<FriendShip> friendships = null;
 	
 	JsonParser parse = new JsonParser();
 	
-	public Query() {}
+	public StatRetr() {}
 	
 	public List<String> friendQuery(String username) throws UsernameNotFoundException {
 		String uuid = usernameToUUID(username);
