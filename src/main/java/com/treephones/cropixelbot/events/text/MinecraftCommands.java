@@ -1,4 +1,4 @@
-package com.treephones.cropixelbot.events;
+package com.treephones.cropixelbot.events.text;
 
 import java.awt.Color;
 
