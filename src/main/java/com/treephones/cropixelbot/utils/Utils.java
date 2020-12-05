@@ -18,4 +18,13 @@ public class Utils {
 	public static String[] getArgs(GuildMessageReceivedEvent e) {
 		return e.getMessage().getContentRaw().split(" ");
 	}
+	
+	public static String getMessage(String[] cmd, int index) {
+		StringBuffer ret = new StringBuffer();
+		for(int i = index; i < cmd.length; ++i) {
+			ret.append(cmd[i] + " ");
+		}
+		return ret.toString();
+	}
+	
 }

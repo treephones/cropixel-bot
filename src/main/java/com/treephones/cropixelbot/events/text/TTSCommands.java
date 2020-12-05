@@ -2,7 +2,9 @@ package com.treephones.cropixelbot.events.text;
 
 import java.awt.Color;
 
+import com.treephones.cropixelbot.utils.Constants;
 import com.treephones.cropixelbot.utils.Utils;
+import com.treephones.cropixelbot.voice.TTS;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.VoiceChannel;
@@ -15,23 +17,27 @@ public class TTSCommands extends ListenerAdapter {
 	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
 		String[] cmd = Utils.getArgs(e);
-		VoiceChannel channel = null;
-		AudioManager audio = e.getGuild().getAudioManager();
-		try {
-			channel = e.getMember().getVoiceState().getChannel();
-		}
-		catch(Exception f) {
-			e.getChannel().sendMessage(new EmbedBuilder()
-					.setTitle("Uh Oh!")
-					.setDescription("You must be connected to a voice channel to use this.")
-					.setColor(Color.BLACK)
-					.build()).queue();
-		}
 		
-		if(cmd[0].equalsIgnoreCase("TTS")) {
+		if(cmd[0].equalsIgnoreCase(Constants.prompt + "voice")) {
+			VoiceChannel channel = e.getMember().getVoiceState().getChannel();;
+			AudioManager audio = e.getGuild().getAudioManager();
+			if(channel == null) {
+				e.getChannel().sendMessage(new EmbedBuilder()
+						.setTitle("Uh Oh!")
+						.setDescription("You must be connected to a voice channel to use this.")
+						.setColor(Color.BLACK)
+						.build()).queue();
+				return;
+			}
+			
 			if(cmd[1].equalsIgnoreCase("start")) {
 				if(!audio.isConnected()) {
 					audio.openAudioConnection(channel);
+					e.getChannel().sendMessage(new EmbedBuilder()
+							.setTitle("Connected!")
+							.setDescription("Connected to " + channel.getName() + ".")
+							.setColor(Color.BLACK)
+							.build()).queue();
 				}
 				else {
 					e.getChannel().sendMessage(new EmbedBuilder()
@@ -44,6 +50,11 @@ public class TTSCommands extends ListenerAdapter {
 			else if(cmd[1].equalsIgnoreCase("stop")) {
 				if(audio.isConnected()) {
 					audio.closeAudioConnection();
+					e.getChannel().sendMessage(new EmbedBuilder()
+							.setTitle("Disconnected!")
+							.setDescription("Disconnected from " + channel.getName() + ".")
+							.setColor(Color.BLACK)
+							.build()).queue();
 				}
 				else {
 					e.getChannel().sendMessage(new EmbedBuilder()
@@ -52,6 +63,18 @@ public class TTSCommands extends ListenerAdapter {
 							.setColor(Color.BLACK)
 							.build()).queue();
 				}
+			}
+			else if(cmd[1].equalsIgnoreCase("say") && audio.isConnected()) {
+				String message = Utils.getMessage(cmd, 2);
+				TTS tts = new TTS("kevin16");
+				tts.writeTTS(message);
+				tts.say(e, channel, audio);
+				e.getChannel().sendMessage(new EmbedBuilder()
+						.setTitle("Speaking..")
+						.setDescription("Message is being said.")
+						.setColor(Color.BLACK)
+						.build()).queue();
+				
 			}
 		}
 	}

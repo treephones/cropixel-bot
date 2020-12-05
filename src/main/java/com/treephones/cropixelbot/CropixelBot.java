@@ -5,6 +5,7 @@ import javax.security.auth.login.LoginException;
 import com.treephones.cropixelbot.events.text.HypixelCommands;
 import com.treephones.cropixelbot.events.text.ImageCommands;
 import com.treephones.cropixelbot.events.text.MinecraftCommands;
+import com.treephones.cropixelbot.events.text.TTSCommands;
 import com.treephones.cropixelbot.stat.StatRetr;
 import com.treephones.cropixelbot.utils.Constants;
 
@@ -24,5 +25,6 @@ public class CropixelBot {
 		jda.addEventListener(new MinecraftCommands());
 		jda.addEventListener(new HypixelCommands());
 		jda.addEventListener(new ImageCommands());
+		jda.addEventListener(new TTSCommands());
 	}
 }
