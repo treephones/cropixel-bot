@@ -30,6 +30,7 @@ public class TTS {
 	public AudioPlayer player;
 	public String name;
 	public String path = "src/main/resources/voicecache/voicecache";
+	public String play_path = "src/main/resources/voicecache/voicecache.wav";
 	
 	public TTS(String name) {
 		System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
@@ -82,7 +83,7 @@ public class TTS {
 							.build()).queue();
 			  }
 			};
-		manager.loadItem(this.path, handler);
+		manager.loadItem(this.play_path, handler);
 		audioManager.setSendingHandler(sendHandler);
 		audioManager.openAudioConnection(channel);
 		
