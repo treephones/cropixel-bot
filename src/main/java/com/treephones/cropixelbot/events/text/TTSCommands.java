@@ -69,12 +69,6 @@ public class TTSCommands extends ListenerAdapter {
 				TTS tts = new TTS("kevin16");
 				tts.writeTTS(message);
 				tts.say(e, channel, audio);
-				e.getChannel().sendMessage(new EmbedBuilder()
-						.setTitle("Speaking..")
-						.setDescription("Message is being said.")
-						.setColor(Color.BLACK)
-						.build()).queue();
-				
 			}
 		}
 	}
