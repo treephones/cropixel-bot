@@ -47,11 +47,6 @@
   </build>
 
   <repositories> 
-  	<repository>
-    	<id>jcenter</id>
-    	<name>jcenter-bintray</name>
-    	<url>https://jcenter.bintray.com</url>
-	</repository>
 	<repository>
     	<id>Hypixel</id>
     	<url>https://repo.hypixel.net/repository/Hypixel/</url>
