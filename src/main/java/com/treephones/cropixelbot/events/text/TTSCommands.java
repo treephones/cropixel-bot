@@ -18,7 +18,7 @@ public class TTSCommands extends ListenerAdapter {
 	public void onGuildMessageReceived(GuildMessageReceivedEvent e) {
 		String[] cmd = Utils.getArgs(e);
 		
-		if(cmd[0].equalsIgnoreCase(Constants.prompt + "voice")) {
+		if(cmd[0].equalsIgnoreCase(Constants.prompt + "voice") || cmd[0].equalsIgnoreCase(Constants.prompt + "v")) {
 			VoiceChannel channel = e.getMember().getVoiceState().getChannel();;
 			AudioManager audio = e.getGuild().getAudioManager();
 			if(channel == null) {
@@ -30,7 +30,7 @@ public class TTSCommands extends ListenerAdapter {
 				return;
 			}
 			
-			if(cmd[1].equalsIgnoreCase("start")) {
+			if(Utils.isInArr(cmd[1], Constants.join_words)) {
 				if(!audio.isConnected()) {
 					audio.openAudioConnection(channel);
 					e.getChannel().sendMessage(new EmbedBuilder()
@@ -47,7 +47,7 @@ public class TTSCommands extends ListenerAdapter {
 							.build()).queue();
 				}
 			}
-			else if(cmd[1].equalsIgnoreCase("stop")) {
+			else if(Utils.isInArr(cmd[1], Constants.leave_words)) {
 				if(audio.isConnected()) {
 					audio.closeAudioConnection();
 					e.getChannel().sendMessage(new EmbedBuilder()
@@ -69,6 +69,11 @@ public class TTSCommands extends ListenerAdapter {
 				TTS tts = new TTS("kevin16");
 				tts.writeTTS(message);
 				tts.say(e, channel, audio);
+				e.getChannel().sendMessage(new EmbedBuilder()
+						.setTitle("Message Said!")
+						.setDescription("Message has been said in " + channel.getName() + ".")
+						.setColor(Color.BLACK)
+						.build()).queue();
 			}
 		}
 	}

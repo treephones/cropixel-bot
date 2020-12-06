@@ -27,4 +27,13 @@ public class Utils {
 		return ret.toString();
 	}
 	
+	public static boolean isInArr(String elem, String[] arr) {
+		for(int i = 0; i < arr.length; ++i) {
+			if(arr[i].equalsIgnoreCase(elem)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
