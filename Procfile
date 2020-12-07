@@ -1,1 +1,1 @@
-Worker: java src/main/java/com/treephones/cropixelbot/CropixelBot.java
+web: java src/main/java/com/treephones/cropixelbot/CropixelBot.java
